@@ -26,27 +26,15 @@
  */
 package nl.unimaas.bigcat.wikipathways.curator;
 
-import nl.unimaas.bigcat.wikipathways.curator.SPARQLHelper;
-import nl.unimaas.bigcat.wikipathways.curator.StringMatrix;
-
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class General {
 
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
-	
 	@Test
 	public void nullDataSources() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/nullDataSource.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Data nodes with a 'null' data source:\n" + table, 0, table.getRowCount());
 	}
@@ -54,7 +42,7 @@ public class General {
 	@Test
 	public void noIdentifierURIs() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/noIdentifierURIs.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Data nodes with a 'noIdentifier' URI:\n" + table, 0, table.getRowCount());
 	}
@@ -62,7 +50,7 @@ public class General {
 	@Test
 	public void emptyLabelOfNodeWithIdentifier() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/emptyLabelsWithIdentifiers.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Data nodes with an identifier but empty label:\n" + table, 0, table.getRowCount());
 	}
@@ -70,7 +58,7 @@ public class General {
 	@Test
 	public void dataNodeWithoutGraphId() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/dataNodeWithoutGraphId.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Data nodes without @GraphId:\n" + table, 0, table.getRowCount());
 	}
@@ -78,7 +66,7 @@ public class General {
 	@Test
 	public void hasPoints() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/pointClass.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected things of type gpml:Point.", 0, table.getRowCount());
 	}
@@ -86,7 +74,7 @@ public class General {
 	@Test
 	public void groupsHaveDetail() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/groupDetails.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Expected details for things of type gpml:Group: " + table, 0, table.getRowCount());
 	}
@@ -94,7 +82,7 @@ public class General {
 	@Test
 	public void nodesHaveTypedParents() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/nodesHaveTypedParents.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Parents of DataNodes should be typed: " + table, 0, table.getRowCount());
 	}
@@ -102,7 +90,7 @@ public class General {
 	@Test
 	public void nodesPointingToUnspecifiedGroups() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/nodesInEmptyGroups.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Nodes should not be part of unspecified groups: " + table, 0, table.getRowCount());
 	}

@@ -27,23 +27,14 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hp.hpl.jena.rdf.model.Model;
-
 public class Genes {
-
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
 
 	@Test
 	public void entrezGeneIdentifiersNotNumber() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("genes/allEntrezGenesIdentifiers.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		String errors = "";
 		int errorCount = 0;

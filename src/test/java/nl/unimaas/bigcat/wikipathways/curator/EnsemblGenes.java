@@ -27,25 +27,15 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hp.hpl.jena.rdf.model.Model;
-
 public class EnsemblGenes {
-
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		OPSWPRDFFiles.loadData();
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
 
 	@Test(timeout=20000)
 	public void wrongEnsemblIDForHumanSpecies() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("genes/ensemblGenesWrongSpecies_Human.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals(
 			"Ensembl identifiers for wrong species for a human pathway:\n" + table,
@@ -57,7 +47,7 @@ public class EnsemblGenes {
 	public void wrongEnsemblIDForRatSpecies() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("genes/ensemblGenesWrongSpecies_Rat.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals(
 			"Ensembl identifiers for wrong species for a rat pathway:\n" + table,
@@ -69,7 +59,7 @@ public class EnsemblGenes {
 	public void wrongEnsemblIDForMouseSpecies() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("genes/ensemblGenesWrongSpecies_Mouse.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals(
 			"Ensembl identifiers for wrong species for a mouse pathway:\n" + table,
@@ -81,7 +71,7 @@ public class EnsemblGenes {
 	public void wrongEnsemblIDForCowSpecies() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("genes/ensemblGenesWrongSpecies_Cow.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals(
 			"Ensembl identifiers for wrong species for a cow pathway:\n" + table,

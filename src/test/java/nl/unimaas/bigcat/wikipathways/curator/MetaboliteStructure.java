@@ -26,27 +26,15 @@
  */
 package nl.unimaas.bigcat.wikipathways.curator;
 
-import nl.unimaas.bigcat.wikipathways.curator.SPARQLHelper;
-import nl.unimaas.bigcat.wikipathways.curator.StringMatrix;
-
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class MetaboliteStructure {
 
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
-	
 	@Test
 	public void nullDataSources() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/metaboliteClass.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertTrue(
 			"Unexpectedly low metabolite count:\n" + table.getRowCount(),
@@ -57,7 +45,7 @@ public class MetaboliteStructure {
 	@Test
 	public void isPartOfAPathway() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/isPartOfAPathway.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("Found metabolites that are not part of a pathway:\n" + table, 0, table.getRowCount());
 	}

@@ -27,24 +27,15 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class BridgeDbMappings {
 
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
-	
 	@Test(timeout=10000)
 	public void hasSomeEntrezGeneMappings() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/hasEntrezGeneMappings.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected some mapped Entrez Genes.", 0, table.getRowCount());
 	}
@@ -53,7 +44,7 @@ public class BridgeDbMappings {
 	public void hasSomeHMDBMappings() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/hasHMDBMappings.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected some mapped HMDB identifiers.", 0, table.getRowCount());
 	}
@@ -62,7 +53,7 @@ public class BridgeDbMappings {
 	public void hasSomeChemSpiderMappings() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/hasChemSpiderMappings.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected some mapped ChemSpider identifiers.", 0, table.getRowCount());
 	}
@@ -71,7 +62,7 @@ public class BridgeDbMappings {
 	public void hasSomeEnsemblMappings() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/hasEnsemblMappings.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected some mapped Ensembl identifiers.", 0, table.getRowCount());
 	}
@@ -80,7 +71,7 @@ public class BridgeDbMappings {
 	public void hasSomeUniprotMappings() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("general/hasUniprotMappings.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertNotSame("Expected some mapped Uniprot identifiers.", 0, table.getRowCount());
 	}

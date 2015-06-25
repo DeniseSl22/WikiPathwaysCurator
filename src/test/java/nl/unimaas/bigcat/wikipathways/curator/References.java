@@ -27,23 +27,14 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class References {
 
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
-	
 	@Test
 	public void nonNumericPubMedIDs() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("references/nonNumericPubMedIDs.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		String errors = "";
 		if (table.getRowCount() > 0) {
 			// OK, but then it must be proteins, e.g. IFN-b

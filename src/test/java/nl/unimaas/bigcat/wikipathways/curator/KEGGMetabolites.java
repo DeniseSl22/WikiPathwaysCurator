@@ -27,25 +27,15 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hp.hpl.jena.rdf.model.Model;
-
 public class KEGGMetabolites {
-
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		OPSWPRDFFiles.loadData();
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
 
 	@Test(timeout=20000)
 	public void noCnumber() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("metabolite/badformat/badKEGG.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("KEGG Compound identifiers that are not C\\d+:\n" + table, 0, table.getRowCount());
 	}
@@ -54,7 +44,7 @@ public class KEGGMetabolites {
 	public void hasCPDprefix() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("metabolite/badformat/badKEGG2.rq");
 		Assert.assertNotNull(sparql);
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		Assert.assertEquals("KEGG Compound identifiers should not have a 'cpd:' prefix:\n" + table, 0, table.getRowCount());
 	}
