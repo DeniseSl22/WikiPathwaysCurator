@@ -27,10 +27,12 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class KEGGMetabolites {
 
+	@Ignore
 	@Test(timeout=20000)
 	public void noCnumber() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("metabolite/badformat/badKEGG.rq");

@@ -27,6 +27,7 @@
 package nl.unimaas.bigcat.wikipathways.curator;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class General {
@@ -55,6 +56,7 @@ public class General {
 		Assert.assertEquals("Data nodes with an identifier but empty label:\n" + table, 0, table.getRowCount());
 	}
 
+	@Ignore
 	@Test
 	public void dataNodeWithoutGraphId() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/dataNodeWithoutGraphId.rq");
@@ -79,6 +81,7 @@ public class General {
 		Assert.assertEquals("Expected details for things of type gpml:Group: " + table, 0, table.getRowCount());
 	}
 
+	@Ignore
 	@Test
 	public void nodesHaveTypedParents() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/nodesHaveTypedParents.rq");
@@ -87,6 +90,7 @@ public class General {
 		Assert.assertEquals("Parents of DataNodes should be typed: " + table, 0, table.getRowCount());
 	}
 
+	@Ignore
 	@Test
 	public void nodesPointingToUnspecifiedGroups() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("structure/nodesInEmptyGroups.rq");
