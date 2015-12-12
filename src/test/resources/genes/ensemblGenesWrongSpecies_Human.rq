@@ -12,6 +12,7 @@ WHERE {
     dcterms:identifier ?identifier ;
     dcterms:isPartOf ?pathway .
   FILTER (!strStarts(?identifier, "ENSG"))
+  FILTER (!strStarts(?identifier, "PF"))
   ?pathway wp:organism <http://purl.obolibrary.org/obo/NCBITaxon_9606> ;
     foaf:page ?homepage .
 }
