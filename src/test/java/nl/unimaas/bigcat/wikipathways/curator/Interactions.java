@@ -34,16 +34,10 @@ import com.hp.hpl.jena.rdf.model.Model;
 
 public class Interactions {
 
-	@BeforeClass
-	public static void loadData() throws InterruptedException {
-		Model data = OPSWPRDFFiles.loadData();
-		Assert.assertTrue(data.size() > 5000);
-	}
-
 	@Test
 	public void noGeneGeneConversions() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("interactions/noGeneGeneConversions.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		String errors = "";
 		int errorCount = 0;
@@ -65,7 +59,7 @@ public class Interactions {
 	@Test
 	public void noGeneProteinConversions() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("interactions/noGeneProteinConversions.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		String errors = "";
 		int errorCount = 0;
@@ -87,7 +81,7 @@ public class Interactions {
 	@Test
 	public void noProteinProteinConversions() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("interactions/noProteinProteinConversions.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		Assert.assertNotNull(table);
 		String errors = "";
 		int errorCount = 0;
