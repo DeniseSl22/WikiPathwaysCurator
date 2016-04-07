@@ -29,6 +29,7 @@ package nl.unimaas.bigcat.wikipathways.curator;
 import org.junit.Assert;
 import org.junit.Test;
 
+import org.apache.jena.rdf.model.Model;
 public class References {
 
 	@Test

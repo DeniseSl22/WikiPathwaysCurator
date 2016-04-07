@@ -30,7 +30,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-@Ignore
+import org.apache.jena.rdf.model.Model;
 public class OudatedDataSources {
 
 	@Test(timeout=10000)
