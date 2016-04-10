@@ -60,7 +60,7 @@ public class References {
 	@Test
 	public void zeroPubMedIDs() throws Exception {
 		String sparql = ResourceHelper.resourceAsString("references/nonNumericPubMedIDs.rq");
-		StringMatrix table = SPARQLHelper.sparql(OPSWPRDFFiles.loadData(), sparql);
+		StringMatrix table = SPARQLHelper.sparql("http://sparql.wikipathways.org/", sparql);
 		String errors = "";
 		if (table.getRowCount() > 0) {
 			for (int i=1; i<=table.getRowCount(); i++) {
